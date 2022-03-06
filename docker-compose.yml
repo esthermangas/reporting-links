@@ -1,0 +1,11 @@
+version: "3"
+services:
+  timescale:
+    image: timescale/timescaledb:latest-pg14
+    container_name: timescaledb
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=timescaledb
+      - POSTGRES_USER=timescale
+      - POSTGRES_PASSWORD=pass1234
