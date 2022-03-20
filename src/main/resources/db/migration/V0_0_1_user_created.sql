@@ -7,5 +7,6 @@ CREATE TABLE users(
                       lastname varchar(255) ,
                       max_request int ,
                       window_time_ms int,
-                      event varchar(191)
+                      event varchar(191),
+                    created_at date
 );

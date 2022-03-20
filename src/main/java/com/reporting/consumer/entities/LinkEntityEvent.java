@@ -7,13 +7,13 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class LinkEntityEvent implements EntityEvent{
+public class LinkEntityEvent extends EntityEvent{
 
     String id;
     String original;
     String shortened;
-    int counter;
     String ownerId;
     Event event;
+    String createdAt;
 
 }

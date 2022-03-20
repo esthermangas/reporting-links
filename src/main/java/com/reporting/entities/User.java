@@ -1,33 +1,35 @@
 package com.reporting.entities;
 
+import com.influxdb.annotations.Column;
+import com.influxdb.annotations.Measurement;
 import com.reporting.consumer.entities.Event;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.*;
+import java.time.Instant;
 
-@Table(name = "users")
-@Entity
+
 @Getter
 @Setter
-public class User extends AbstractEntity{
+@Measurement(name = "Users")
+public class User implements EventEntity{
 
-  @Id @GeneratedValue
-  private Long id;
-  @Column(name="user_id")
+  @Column()
   String userId;
-  @Column(name="enabled")
+  @Column()
   boolean enabled;
-  @Column(name="username")
+  @Column()
   String username;
-  @Column(name="firstname")
+  @Column()
   String firstName;
-  @Column(name="lastname")
+  @Column()
   String lastName;
-  @Column(name="max_request")
-  int maxRequest;
-  @Column(name="window_time_ms")
-  int windowTimeMS;
-  @Column(name="event")
+  @Column()
+  Long maxRequest;
+  @Column()
+  Long windowTimeMS;
+  @Column(tag = true)
   Event event;
+  @Column(timestamp = true)
+  private Instant time;
 }

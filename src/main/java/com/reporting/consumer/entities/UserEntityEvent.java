@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserEntityEvent implements EntityEvent{
+public class UserEntityEvent extends EntityEvent{
 
     String id;
     boolean enabled;
@@ -17,5 +17,5 @@ public class UserEntityEvent implements EntityEvent{
     int maxRequest;
     int windowTimeMS;
     Event event;
-
+    String createdAt;
 }

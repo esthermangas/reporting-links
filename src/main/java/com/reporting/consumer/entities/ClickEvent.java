@@ -7,11 +7,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class LinkMetricEntityEvent implements EntityEvent{
-    String id;
-    String date;
-    long count;
+public class ClickEvent extends EntityEvent{
     String linkId;
-
+    String createdAt;
 
 }

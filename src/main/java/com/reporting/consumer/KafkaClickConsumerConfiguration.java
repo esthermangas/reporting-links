@@ -1,22 +1,26 @@
 package com.reporting.consumer;
-
-import com.fasterxml.jackson.databind.deser.std.StringDeserializer;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.reporting.consumer.entities.LinkEntityEvent;
+import com.reporting.entities.Click;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
+import org.apache.kafka.common.serialization.StringDeserializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.annotation.EnableKafka;
 import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
 import org.springframework.kafka.core.ConsumerFactory;
 import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
+import org.springframework.kafka.support.serializer.JsonDeserializer;
 
 import java.util.HashMap;
 import java.util.Map;
 
 @EnableKafka
 @Configuration
-public class KafkaConsumerConfiguration {
+public class KafkaClickConsumerConfiguration {
+
     @Bean
-    public ConsumerFactory<String, String> consumerFactory() {
+    public ConsumerFactory<String, Click> consumerClickFactory() {
         Map<String, Object> props = new HashMap<>();
         props.put(
                 ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG,
@@ -24,22 +28,20 @@ public class KafkaConsumerConfiguration {
         props.put(
                 ConsumerConfig.GROUP_ID_CONFIG,
                 "reporting");
-        props.put(
-                ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG,
-                StringDeserializer.class);
-        props.put(
-                ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG,
-                StringDeserializer.class);
-        return new DefaultKafkaConsumerFactory<>(props);
+
+
+        JsonDeserializer<Click> jsonDeserializer = new JsonDeserializer<>(new TypeReference<>() {});
+        jsonDeserializer.setUseTypeHeaders(false);
+        return new DefaultKafkaConsumerFactory<>(props, new StringDeserializer(), jsonDeserializer);
+
     }
 
     @Bean
-    public ConcurrentKafkaListenerContainerFactory<String, String>
-    kafkaListenerContainerFactory() {
-
-        ConcurrentKafkaListenerContainerFactory<String, String> factory =
+    public ConcurrentKafkaListenerContainerFactory<String, Click>
+    kafkaListenerContainerClickFactory() {
+        ConcurrentKafkaListenerContainerFactory<String, Click> factory =
                 new ConcurrentKafkaListenerContainerFactory<>();
-        factory.setConsumerFactory(consumerFactory());
+        factory.setConsumerFactory(consumerClickFactory());
         return factory;
     }
 }

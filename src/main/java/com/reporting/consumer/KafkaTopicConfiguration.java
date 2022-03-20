@@ -31,7 +31,7 @@ public class KafkaTopicConfiguration {
         return new NewTopic("LinkEntityEvent", 1, (short) 1);
     }
     @Bean
-    public NewTopic linkMetricTopic() {
-        return new NewTopic("LinkMetricEntityEvent", 1, (short) 1);
+    public NewTopic clicks() {
+        return new NewTopic("Clicks", 1, (short) 1);
     }
 }

@@ -1,4 +1,4 @@
 package com.reporting.consumer.entities;
 
-public interface EntityEvent {
+public abstract class EntityEvent {
 }

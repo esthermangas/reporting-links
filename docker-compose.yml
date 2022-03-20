@@ -1,11 +1,14 @@
-version: "3"
+version: "3.5"
 services:
-  timescale:
-    image: timescale/timescaledb:latest-pg14
-    container_name: timescaledb
+  influx:
+    image: influxdb:latest
+    container_name: influxdb
     ports:
-      - "5432:5432"
+      -  "8086:8086"
     environment:
-      - POSTGRES_DB=timescaledb
-      - POSTGRES_USER=timescale
-      - POSTGRES_PASSWORD=pass1234
+      - DOCKER_INFLUXDB_INIT_USERNAME=root
+      - DOCKER_INFLUXDB_INIT_PASSWORD=root1234
+      - DOCKER_INFLUXDB_INIT_ORG=reporting
+      - DOCKER_INFLUXDB_INIT_BUCKET=reportingEvents
+      - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=root
+      - DOCKER_INFLUXDB_INIT_MODE=setup
